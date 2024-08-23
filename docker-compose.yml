@@ -100,7 +100,7 @@ services:
       - qdrant_storage:/qdrant/storage
 
   ollama-cpu:
-    profiles: ["cpu"]
+    profiles: ["kucherenko-ai-093717"]
     <<: *service-ollama
 
   ollama-gpu:
@@ -115,7 +115,7 @@ services:
               capabilities: [gpu]
 
   ollama-pull-llama-cpu:
-    profiles: ["cpu"]
+    profiles: ["kucherenko-ai-093717"]
     <<: *init-ollama
     depends_on:
       - ollama-cpu
