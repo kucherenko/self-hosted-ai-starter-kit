@@ -6,9 +6,11 @@ volumes:
 
 x-n8n: &service-n8n
   image: n8nio/n8n:latest
+  networks:
+    - dokploy-network
   environment:
     - DB_TYPE=postgresdb
-    - DB_POSTGRESDB_HOST=kucherenko-ai-d0d737-postgres-1
+    - DB_POSTGRESDB_HOST=postgres
     - DB_POSTGRESDB_USER=${POSTGRES_USER}
     - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
     - N8N_DIAGNOSTICS_ENABLED=false
@@ -41,6 +43,8 @@ services:
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
+    networks:
+      - dokploy-network
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -70,6 +74,8 @@ services:
     <<: *service-n8n
     container_name: n8n
     restart: unless-stopped
+    networks:
+      - dokploy-network
     ports:
       - 5678:5678
     volumes:
